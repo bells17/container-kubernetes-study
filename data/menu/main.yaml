@@ -1,9 +1,0 @@
----
-main:
-  - name: はじめに
-    ref: "/"
-  - name: コンテナ
-    ref: "/container"
-    sub:
-      - name: test
-        ref: "/container/test"
