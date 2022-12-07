@@ -52,8 +52,6 @@ jobs:
           hugo \
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
-      - name: Build
-        run: echo "container-kubernetes-study.bells17.io" >> ./public/CNAME
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
@@ -70,4 +68,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
-
