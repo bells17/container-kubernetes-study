@@ -36,3 +36,5 @@ EXPOSE 1313
 
 # [Optional] Uncomment if you want to install more global node packages
 # RUN sudo -u node npm install -g <your-package-list-here>
+
+RUN curl https://gist.githubusercontent.com/bells17/76c6f5e76bbc9e29250c9c8d2081b8f8/raw/e37daf39ffa373840efd64ec0563676e2e1761b8/.gitconfig >> /home/node/.gitconfig
