@@ -17,55 +17,63 @@ DockerのインストールとDocker Hubへの登録が完了したので、実�
 docker run -p 8080:80 nginx
 ```
 
-実行中に別のターミナルで `curl localhost:8080` のコマンドを実行すると
+`docker run` コマンドはコンテナの起動とコマンドの実行を同時に行うコマンドです。
+
+https://docs.docker.com/engine/reference/commandline/run/
+
+今回の例で言えばnginxイメージのコンテナ起動とnginxの起動処理を同時に行ってくれます。
+
+また `-p <host port>:<container pod>` オプションをつけると、コンテナ側の `<container port>`で指定したポートをホスト側の `<host port>`で指定したポートに割り当てることができます。
+今回は、実行したnginxコンテナのnginxサーバーにリクエストできかをチェックしたいので、ホスト側からリクエストを送れるようにするために設定しています。
+
+実行中に別のターミナルで `docker ps` というコマンドを実行すると
 
 ```
-$ curl localhost:8080
-<!DOCTYPE html>
-<html>
-<head>
-<title>Welcome to nginx!</title>
-<style>
-html { color-scheme: light dark; }
-body { width: 35em; margin: 0 auto;
-font-family: Tahoma, Verdana, Arial, sans-serif; }
-</style>
-</head>
-<body>
-<h1>Welcome to nginx!</h1>
-<p>If you see this page, the nginx web server is successfully installed and
-working. Further configuration is required.</p>
-
-<p>For online documentation and support please refer to
-<a href="http://nginx.org/">nginx.org</a>.<br/>
-Commercial support is available at
-<a href="http://nginx.com/">nginx.com</a>.</p>
-
-<p><em>Thank you for using nginx.</em></p>
-</body>
-</html>
+$ docker ps
+CONTAINER ID   IMAGE     COMMAND                  CREATED         STATUS         PORTS                  NAMES
+62c2cd21f16c   nginx     "/docker-entrypoint.…"   3 seconds ago   Up 2 seconds   0.0.0.0:8080->80/tcp   competent_curie
 ```
 
-のようにレスポンスが返ってくることが確認できるかと思います。
+のように出力されてnginxのイメージが実行されているのが確認できます。
+
+`docker ps` はコンテナの一覧を表示してくれるコマンドとなります。
+特にオプションを付けないと実行中のコンテナのみを一覧表示するので、 `docker ps` コマンドを実行することで、実行したコンテナが現在も実際に実行中かどうかを確認することができます。
+
+https://docs.docker.com/engine/reference/commandline/ps/
+
+また、この状態で `curl -I localhost:8080` コマンドを実行すると
+
+```
+$ curl -I localhost:8080
+HTTP/1.1 200 OK
+Server: nginx/1.23.2
+Date: Fri, 09 Dec 2022 07:19:27 GMT
+Content-Type: text/html
+Content-Length: 615
+Last-Modified: Wed, 19 Oct 2022 07:56:21 GMT
+Connection: keep-alive
+ETag: "634fada5-267"
+Accept-Ranges: bytes
+```
+
+のようにnginxからレスポンスが返ってくることが確認できるかと思います。
 
 一方で `docker run` を実行した方のターミナルを見ると
 
 ```
-172.17.0.1 - - [07/Dec/2022:18:28:32 +0000] "GET / HTTP/1.1" 200 615 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36" "-"
+"HEAD / HTTP/1.1" 200 0 "-" "curl/7.79.1" "-"
 ```
 
 のようにnginxのアクセスログが出力されていることが確認できると思います。
+docker ではコンテナの標準出力/標準エラー出力がログとして表示されるようになっているため、標準出力/標準エラー出力にログを出力されるように設定されているnginxコンテナのログが `docker run` コマンドを実行しているターミナルに出力されています。
 
 ここまでで
 
-- nginxのコンテナを起動して
-- curlでコンテナ上で起動したnginxに対してリクエストが送れる
+- `docker run` コマンドでコンテナの実行が行えること
+- `docker ps` コマンドで実行中のコンテナ一覧が確認できること
+- nginxのコンテナを起動してcurlでコンテナ上で起動したnginxに対してリクエストが送れること
 
-ということが確認できました。
-
-このように `docker run` コマンドを使うとコンテナの起動ができることがわかりました。
-
-これで `docker run` の動作が簡単に確認できたので、 `docker run` を実行していたターミナルで Ctrl + C を押して、コンテナの実行を停止してください。
+が確認できましたので、 `docker run` を実行していたターミナルで `Ctrl + C` を押して、コンテナの実行を停止してください。
 
 ## コンテナイメージの取得元
 
