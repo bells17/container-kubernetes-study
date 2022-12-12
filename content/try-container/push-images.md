@@ -13,7 +13,7 @@ weight: 5
 
 この資料ではコンテナレジストリとしてDocker Hubを利用しますので、もしまだアカウントの作成を行っていなければアカウントの作成をお願いします。
 
-[「はじめに」](/container/introduction)のページでターミナルの `docker login` まで完了していなければ、 `docker login` でDocker Hubにログインをするところまで実行しておいてください。
+[「はじめに」](/try-container/introduction)のページでターミナルの `docker login` まで完了していなければ、 `docker login` でDocker Hubにログインをするところまで実行しておいてください。
 
 ## イメージをpushする
 
@@ -69,3 +69,24 @@ $ docker load < hello-dockerfile.tar
 ```
 
 基本的にはあまりsave/loadでイメージをやり取りすることはありませんが、一部のツールだと `docker save` でエクスポートしたイメージを読み込む必要があることがあるため覚えておくと便利です。
+
+参考:
+
+- https://docs.docker.com/engine/reference/commandline/save/
+- https://docs.docker.com/engine/reference/commandline/load/
+
+## イメージを削除する
+
+`docker rmi` コマンドを使用すると手元のコンテナイメージの削除が可能です。
+
+例えば下記のように削除できます。
+
+```
+$ docker rmi bells17/hello-dockerfile
+Untagged: bells17/hello-dockerfile:latest
+Untagged: bells17/hello-dockerfile@sha256:414aa55f1e9c084df5cf4768dde085e007463d8d4a6ba62df4a8a91b0d60a4db
+Deleted: sha256:87b69702d32c03b418f9b487ea795ea15b51dee9fa6ca20601a89774e49afaff
+```
+
+参考:
+- https://docs.docker.com/engine/reference/commandline/rmi/
