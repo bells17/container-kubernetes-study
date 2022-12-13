@@ -2,7 +2,7 @@
 title: "まとめ"
 date: 2022-12-07T08:09:14Z
 draft: false
-weight: 6
+weight: 7
 ---
 
 ここまでで

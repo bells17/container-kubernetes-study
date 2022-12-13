@@ -234,7 +234,3 @@ Hello Dockerfile
 上記の例を通して最低限知っておくと良い `Dockerfile` の基本的なシンタックスについては紹介できたと考えていますが、その他のシンタックスについては下記を参考にしてください。
 
 https://docs.docker.com/engine/reference/builder
-
-また下記ページに `Dockerfile` のベストプラクティスをDocker社がまとめているので、実際に `Dockerfile` を書いていく際は目を通しておくと良いと思います。
-
-https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
